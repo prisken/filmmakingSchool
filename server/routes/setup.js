@@ -202,7 +202,6 @@ router.post('/populate', async (req, res) => {
         language: "en",
         readingTime: 8,
         views: 1250,
-        likes: 89,
         slug: "filmmaking-beginners-guide"
       },
       {
@@ -219,7 +218,6 @@ router.post('/populate', async (req, res) => {
         language: "en",
         readingTime: 6,
         views: 890,
-        likes: 67,
         slug: "professional-photography-tips"
       }
     ];
