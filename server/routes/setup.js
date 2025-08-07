@@ -8,15 +8,16 @@ const Forum = require('../models/Forum');
 
 const router = express.Router();
 
+// @route   GET /api/setup
+// @desc    Test setup route
+router.get('/', (req, res) => {
+  res.json({ message: 'Setup route is working' });
+});
+
 // @route   POST /api/setup/populate
-// @desc    Populate database with sample data (development only)
+// @desc    Populate database with sample data
 router.post('/populate', async (req, res) => {
   try {
-    // Only allow in development or with a secret key
-    if (process.env.NODE_ENV === 'production' && req.headers['x-setup-key'] !== process.env.SETUP_SECRET_KEY) {
-      return res.status(403).json({ message: 'Not allowed in production' });
-    }
-
     console.log('🚀 Starting database population...');
 
     // Clear existing data
