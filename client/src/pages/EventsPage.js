@@ -230,17 +230,17 @@ const EventsPage = () => {
             placeholder="搜索活动..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent bg-white text-gray-900"
+            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
           />
         </div>
         <div>
           <select
             value={selectedType}
             onChange={(e) => setSelectedType(e.target.value)}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent bg-white text-gray-900 min-w-[120px]"
+            className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white min-w-[120px]"
           >
             {eventTypes.map(type => (
-              <option key={type.value} value={type.value} className="text-gray-900">
+              <option key={type.value} value={type.value} className="text-gray-900 dark:text-white bg-white dark:bg-gray-700">
                 {type.label}
               </option>
             ))}
@@ -250,10 +250,10 @@ const EventsPage = () => {
           <select
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent bg-white text-gray-900 min-w-[120px]"
+            className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white min-w-[120px]"
           >
             {categories.map(category => (
-              <option key={category.value} value={category.value} className="text-gray-900">
+              <option key={category.value} value={category.value} className="text-gray-900 dark:text-white bg-white dark:bg-gray-700">
                 {category.label}
               </option>
             ))}
@@ -282,21 +282,21 @@ const EventsPage = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
               <div>
                 <label className="block text-sm font-medium mb-2">活动标题</label>
-                <input
-                  type="text"
-                  value={newEvent.title}
-                  onChange={(e) => setNewEvent({...newEvent, title: e.target.value})}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500"
-                  required
-                />
+                                  <input
+                    type="text"
+                    value={newEvent.title}
+                    onChange={(e) => setNewEvent({...newEvent, title: e.target.value})}
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-red-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                    required
+                  />
               </div>
               <div>
                 <label className="block text-sm font-medium mb-2">活动类型</label>
-                <select
-                  value={newEvent.type}
-                  onChange={(e) => setNewEvent({...newEvent, type: e.target.value})}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500"
-                >
+                                  <select
+                    value={newEvent.type}
+                    onChange={(e) => setNewEvent({...newEvent, type: e.target.value})}
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-red-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                  >
                   {eventTypes.slice(1).map(type => (
                     <option key={type.value} value={type.value}>
                       {type.label}
@@ -309,11 +309,11 @@ const EventsPage = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
               <div>
                 <label className="block text-sm font-medium mb-2">分类</label>
-                <select
-                  value={newEvent.category}
-                  onChange={(e) => setNewEvent({...newEvent, category: e.target.value})}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500"
-                >
+                                  <select
+                    value={newEvent.category}
+                    onChange={(e) => setNewEvent({...newEvent, category: e.target.value})}
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-red-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                  >
                   {categories.map(category => (
                     <option key={category.value} value={category.value}>
                       {category.label}
@@ -323,47 +323,47 @@ const EventsPage = () => {
               </div>
               <div>
                 <label className="block text-sm font-medium mb-2">开始日期</label>
-                <input
-                  type="datetime-local"
-                  value={newEvent.startDate}
-                  onChange={(e) => setNewEvent({...newEvent, startDate: e.target.value})}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500"
-                  required
-                />
+                                  <input
+                    type="datetime-local"
+                    value={newEvent.startDate}
+                    onChange={(e) => setNewEvent({...newEvent, startDate: e.target.value})}
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-red-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                    required
+                  />
               </div>
               <div>
                 <label className="block text-sm font-medium mb-2">结束日期</label>
-                <input
-                  type="datetime-local"
-                  value={newEvent.endDate}
-                  onChange={(e) => setNewEvent({...newEvent, endDate: e.target.value})}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500"
-                  required
-                />
+                                  <input
+                    type="datetime-local"
+                    value={newEvent.endDate}
+                    onChange={(e) => setNewEvent({...newEvent, endDate: e.target.value})}
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-red-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                    required
+                  />
               </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
               <div>
                 <label className="block text-sm font-medium mb-2">容量</label>
-                <input
-                  type="number"
-                  value={newEvent.capacity.total}
-                  onChange={(e) => setNewEvent({
-                    ...newEvent, 
-                    capacity: {...newEvent.capacity, total: parseInt(e.target.value)}
-                  })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500"
-                  min="1"
-                />
+                                  <input
+                    type="number"
+                    value={newEvent.capacity.total}
+                    onChange={(e) => setNewEvent({
+                      ...newEvent, 
+                      capacity: {...newEvent.capacity, total: parseInt(e.target.value)}
+                    })}
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-red-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                    min="1"
+                  />
               </div>
               <div>
                 <label className="block text-sm font-medium mb-2">状态</label>
-                <select
-                  value={newEvent.status}
-                  onChange={(e) => setNewEvent({...newEvent, status: e.target.value})}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500"
-                >
+                                  <select
+                    value={newEvent.status}
+                    onChange={(e) => setNewEvent({...newEvent, status: e.target.value})}
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-red-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                  >
                   {statuses.map(status => (
                     <option key={status.value} value={status.value}>
                       {status.label}
@@ -375,24 +375,24 @@ const EventsPage = () => {
 
             <div className="mb-4">
               <label className="block text-sm font-medium mb-2">活动描述</label>
-              <textarea
-                value={newEvent.description}
-                onChange={(e) => setNewEvent({...newEvent, description: e.target.value})}
-                rows={4}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500"
-                required
-              />
+                              <textarea
+                  value={newEvent.description}
+                  onChange={(e) => setNewEvent({...newEvent, description: e.target.value})}
+                  rows={4}
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-red-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                  required
+                />
             </div>
 
             <div className="mb-4">
               <label className="block text-sm font-medium mb-2">横幅图片URL</label>
-              <input
-                type="url"
-                value={newEvent.banner}
-                onChange={(e) => setNewEvent({...newEvent, banner: e.target.value})}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500"
-                placeholder="https://example.com/banner.jpg"
-              />
+                              <input
+                  type="url"
+                  value={newEvent.banner}
+                  onChange={(e) => setNewEvent({...newEvent, banner: e.target.value})}
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-red-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                  placeholder="https://example.com/banner.jpg"
+                />
             </div>
 
             <div className="flex gap-2">
