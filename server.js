@@ -39,9 +39,11 @@ app.use('/api/', limiter);
 // CORS configuration
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
-    ? process.env.APP_URL 
+    ? [process.env.APP_URL, process.env.CORS_ORIGIN, 'https://filmmaking-school.vercel.app'].filter(Boolean)
     : ['http://localhost:3000', 'http://127.0.0.1:3000'],
-  credentials: true
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 // Body parsing middleware

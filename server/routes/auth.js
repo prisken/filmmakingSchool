@@ -67,8 +67,11 @@ router.post('/login', [
   body('email').isEmail().normalizeEmail(),
   body('password').notEmpty()
 ], async (req, res) => {
+  console.log('🔐 Login attempt:', { email: req.body.email, hasPassword: !!req.body.password });
+  
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
+    console.log('❌ Validation errors:', errors.array());
     return res.status(400).json({ errors: errors.array() });
   }
 
@@ -76,7 +79,10 @@ router.post('/login', [
     const { email, password } = req.body;
 
     const user = await User.findByEmail(email).select('+password');
+    console.log('👤 User lookup result:', user ? 'User found' : 'User not found');
+    
     if (!user) {
+      console.log('❌ User not found for email:', email);
       return res.status(400).json({ message: 'Invalid credentials' });
     }
 

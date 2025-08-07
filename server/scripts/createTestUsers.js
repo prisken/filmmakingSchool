@@ -1,87 +1,96 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-const User = require('../models/User');
 require('dotenv').config();
 
-const testUsers = [
-  {
-    firstName: 'Admin',
-    lastName: 'User',
-    email: 'admin@filmmakerschool.com',
-    password: 'admin123',
-    role: 'admin',
-    country: 'China',
-    preferredLanguage: 'zh',
-    status: 'active'
-  },
-  {
-    firstName: 'Teacher',
-    lastName: 'User',
-    email: 'teacher@filmmakerschool.com',
-    password: 'teacher123',
-    role: 'teacher',
-    country: 'China',
-    preferredLanguage: 'zh',
-    status: 'active',
-    teacherProfile: {
-      specialization: 'Film Directing',
-      experience: '10+ years in film industry',
-      bio: 'Experienced film director with multiple award-winning projects'
-    }
-  },
-  {
-    firstName: 'Student',
-    lastName: 'User',
-    email: 'student@filmmakerschool.com',
-    password: 'student123',
-    role: 'student',
-    country: 'China',
-    preferredLanguage: 'zh',
-    status: 'active',
-    studentProfile: {
-      level: 'beginner',
-      interests: ['Film Directing', 'Cinematography'],
-      goals: 'Learn professional filmmaking techniques'
-    }
-  }
-];
+// Import User model
+const User = require('../models/User');
 
-async function createTestUsers() {
+const createTestUsers = async () => {
   try {
     // Connect to MongoDB
-    await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/filmmaker-school');
+    const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/filmmaker-school';
+    await mongoose.connect(mongoURI);
     console.log('✅ Connected to MongoDB');
 
     // Clear existing test users
     await User.deleteMany({
-      email: { 
-        $in: testUsers.map(user => user.email) 
+      email: {
+        $in: [
+          'admin@filmmakerschool.com',
+          'teacher@filmmakerschool.com',
+          'student@filmmakerschool.com'
+        ]
       }
     });
-    console.log('🗑️  Cleared existing test users');
+    console.log('🗑️ Cleared existing test users');
 
-    // Create new test users
-    for (const userData of testUsers) {
-      const user = new User(userData);
-      await user.save();
-      console.log(`✅ Created ${userData.role} user: ${userData.email}`);
-    }
+    // Hash passwords
+    const adminPassword = await bcrypt.hash('admin123', 12);
+    const teacherPassword = await bcrypt.hash('teacher123', 12);
+    const studentPassword = await bcrypt.hash('student123', 12);
+
+    // Create test users
+    const testUsers = [
+      {
+        firstName: 'Admin',
+        lastName: 'User',
+        email: 'admin@filmmakerschool.com',
+        password: adminPassword,
+        role: 'admin',
+        status: 'active',
+        country: 'China',
+        city: 'Beijing',
+        preferredLanguage: 'zh',
+        experienceLevel: 'professional',
+        interests: ['directing', 'cinematography', 'editing'],
+        bio: 'System administrator with full access to all features.',
+        avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face'
+      },
+      {
+        firstName: 'Teacher',
+        lastName: 'User',
+        email: 'teacher@filmmakerschool.com',
+        password: teacherPassword,
+        role: 'teacher',
+        status: 'active',
+        country: 'China',
+        city: 'Shanghai',
+        preferredLanguage: 'zh',
+        experienceLevel: 'professional',
+        interests: ['directing', 'screenwriting', 'feature-film'],
+        bio: 'Experienced filmmaking instructor with expertise in directing and screenwriting.',
+        avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face'
+      },
+      {
+        firstName: 'Student',
+        lastName: 'User',
+        email: 'student@filmmakerschool.com',
+        password: studentPassword,
+        role: 'student',
+        status: 'active',
+        country: 'China',
+        city: 'Guangzhou',
+        preferredLanguage: 'zh',
+        experienceLevel: 'beginner',
+        interests: ['cinematography', 'editing', 'short-film'],
+        bio: 'Passionate student learning filmmaking fundamentals.',
+        avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face'
+      }
+    ];
+
+    // Insert users
+    const createdUsers = await User.insertMany(testUsers);
+    console.log('✅ Created test users:');
+    
+    createdUsers.forEach(user => {
+      console.log(`   - ${user.role}: ${user.email} (${user.firstName} ${user.lastName})`);
+    });
 
     console.log('\n🎉 Test users created successfully!');
-    console.log('\n📋 Test Credentials:');
-    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-    
-    testUsers.forEach(user => {
-      console.log(`\n👤 ${user.role.toUpperCase()}:`);
-      console.log(`   Email: ${user.email}`);
-      console.log(`   Password: ${user.password}`);
-      console.log(`   Description: ${user.role === 'admin' ? 'Full access to all features' : 
-                   user.role === 'teacher' ? 'Can create and manage courses' : 
-                   'Can enroll in courses and access learning materials'}`);
-    });
-    
-    console.log('\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-    console.log('💡 You can now use these credentials to test the login functionality!');
+    console.log('\nLogin credentials:');
+    console.log('Admin: admin@filmmakerschool.com / admin123');
+    console.log('Teacher: teacher@filmmakerschool.com / teacher123');
+    console.log('Student: student@filmmakerschool.com / student123');
 
   } catch (error) {
     console.error('❌ Error creating test users:', error);
@@ -89,7 +98,7 @@ async function createTestUsers() {
     await mongoose.disconnect();
     console.log('🔌 Disconnected from MongoDB');
   }
-}
+};
 
 // Run the script
 createTestUsers(); 
