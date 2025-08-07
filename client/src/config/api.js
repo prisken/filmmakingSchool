@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Get the backend URL from environment variables or use a default
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://filmmakingschool-filmmaking-school.up.railway.app';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
 
 // Create axios instance with base URL
 const api = axios.create({
