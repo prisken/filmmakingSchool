@@ -49,7 +49,8 @@ const createSampleForumPosts = async () => {
         category: 'general',
         type: 'announcement',
         tags: ['欢迎', '介绍', '规则'],
-        likes: [teacherUser._id, studentUser._id]
+        likes: [teacherUser._id, studentUser._id],
+        slug: 'welcome-to-filmmaking-forum'
       },
       {
         title: '新手导演如何开始第一个短片项目？',
@@ -66,7 +67,8 @@ const createSampleForumPosts = async () => {
         category: 'directing',
         type: 'question',
         tags: ['新手', '短片', '导演', '项目'],
-        likes: [adminUser._id]
+        likes: [adminUser._id],
+        slug: 'new-director-first-short-film'
       },
       {
         title: '分享：我的摄影技巧心得',
@@ -92,7 +94,8 @@ const createSampleForumPosts = async () => {
         category: 'cinematography',
         type: 'discussion',
         tags: ['摄影', '技巧', '构图', '光影'],
-        likes: [adminUser._id, studentUser._id]
+        likes: [adminUser._id, studentUser._id],
+        slug: 'photography-techniques-sharing'
       },
       {
         title: '寻找剪辑师合作项目',
@@ -120,6 +123,7 @@ const createSampleForumPosts = async () => {
         category: 'collaboration',
         type: 'collaboration',
         tags: ['合作', '剪辑师', '短片', '项目'],
+        slug: 'looking-for-editor-collaboration',
         pitch: {
           genre: '剧情',
           budget: { min: 5000, max: 10000, currency: 'CNY' },
@@ -164,7 +168,8 @@ const createSampleForumPosts = async () => {
         category: 'editing',
         type: 'discussion',
         tags: ['剪辑', '软件', '推荐', '新手'],
-        likes: [adminUser._id, studentUser._id]
+        likes: [adminUser._id, studentUser._id],
+        slug: 'editing-software-recommendations'
       },
       {
         title: '项目提案：科幻短片《时间旅行者》',
@@ -196,6 +201,7 @@ const createSampleForumPosts = async () => {
         category: 'project-pitch',
         type: 'project-pitch',
         tags: ['科幻', '短片', '提案', '特效'],
+        slug: 'sci-fi-short-film-pitch',
         pitch: {
           genre: '科幻',
           budget: { min: 20000, max: 50000, currency: 'CNY' },

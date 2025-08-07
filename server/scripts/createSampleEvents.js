@@ -30,7 +30,7 @@ const createSampleEvents = async () => {
         description: '为期两天的电影制作基础工作坊，适合初学者参加。学习基本的拍摄技巧、剪辑方法和故事讲述。',
         type: 'workshop',
         category: 'directing',
-        language: 'zh',
+        language: 'en',
         startDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days from now
         endDate: new Date(Date.now() + 9 * 24 * 60 * 60 * 1000), // 9 days from now
         timezone: 'Asia/Shanghai',
@@ -65,7 +65,7 @@ const createSampleEvents = async () => {
         description: '展示学生作品的专业短片电影节，提供展示平台和交流机会。',
         type: 'festival',
         category: 'short-film',
-        language: 'zh',
+        language: 'en',
         startDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000), // 14 days from now
         endDate: new Date(Date.now() + 16 * 24 * 60 * 60 * 1000), // 16 days from now
         timezone: 'Asia/Shanghai',
@@ -105,7 +105,7 @@ const createSampleEvents = async () => {
         description: '由知名摄影师主讲的高级摄影技巧课程，深入探讨电影摄影的艺术。',
         type: 'masterclass',
         category: 'cinematography',
-        language: 'zh',
+        language: 'en',
         startDate: new Date(Date.now() + 21 * 24 * 60 * 60 * 1000), // 21 days from now
         endDate: new Date(Date.now() + 21 * 24 * 60 * 60 * 1000), // Same day
         timezone: 'Asia/Shanghai',
@@ -142,7 +142,7 @@ const createSampleEvents = async () => {
         description: '电影制作人网络交流活动，分享经验，建立人脉，寻找合作机会。',
         type: 'networking',
         category: 'directing',
-        language: 'zh',
+        language: 'en',
         startDate: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000), // 3 days from now
         endDate: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000), // Same day
         timezone: 'Asia/Shanghai',

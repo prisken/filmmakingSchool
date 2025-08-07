@@ -54,7 +54,7 @@ const createSampleBlogPosts = async () => {
 记住，成为优秀导演需要时间和实践。从短片开始，逐步提升你的技能。`,
         excerpt: '本文为电影制作初学者提供全面的导演入门指南，涵盖视觉语言、叙事结构和团队协作等核心概念。',
         category: 'filmmaking-basics',
-        language: 'zh',
+        language: 'en',
         featuredImage: 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=800&h=450&fit=crop',
         tags: ['导演', '入门', '基础', '视觉语言'],
         status: 'published',
@@ -63,6 +63,7 @@ const createSampleBlogPosts = async () => {
         difficulty: 'beginner',
         featured: true,
         featuredOrder: 1,
+        slug: 'filmmaking-beginners-guide',
         author: adminUser._id
       },
       {
@@ -97,7 +98,7 @@ const createSampleBlogPosts = async () => {
 掌握这些技巧，你的作品将更具电影感。`,
         excerpt: '分享专业摄影师的实用技巧，教你如何创造具有电影感的画面效果。',
         category: 'cinematography',
-        language: 'zh',
+        language: 'en',
         featuredImage: 'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=800&h=450&fit=crop',
         tags: ['摄影', '构图', '光影', '镜头'],
         status: 'published',
@@ -106,6 +107,7 @@ const createSampleBlogPosts = async () => {
         difficulty: 'intermediate',
         featured: true,
         featuredOrder: 2,
+        slug: 'professional-photography-tips',
         author: adminUser._id
       },
       {
@@ -141,7 +143,7 @@ const createSampleBlogPosts = async () => {
 剪辑需要耐心和艺术感，多练习才能掌握。`,
         excerpt: '深入探讨剪辑艺术，从基本原则到高级技巧，帮助剪辑师提升作品质量。',
         category: 'editing',
-        language: 'zh',
+        language: 'en',
         featuredImage: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&h=450&fit=crop',
         tags: ['剪辑', '后期', '故事', '技巧'],
         status: 'draft',
@@ -149,6 +151,7 @@ const createSampleBlogPosts = async () => {
         readingTime: 7,
         difficulty: 'intermediate',
         featured: false,
+        slug: 'editing-art-storytelling',
         author: adminUser._id
       },
       {
@@ -191,17 +194,12 @@ These trends are shaping the future of filmmaking.`,
         readingTime: 5,
         difficulty: 'beginner',
         featured: false,
+        slug: 'filmmaking-technology-trends',
         author: adminUser._id
       }
     ];
 
-    // Create slug for each post
-    samplePosts.forEach(post => {
-      post.slug = post.title.toLowerCase()
-        .replace(/[^a-z0-9\s]/g, '')
-        .replace(/\s+/g, '-')
-        .substring(0, 50);
-    });
+    // Slugs are already defined in the posts
 
     // Insert blog posts
     const createdPosts = await Blog.insertMany(samplePosts);

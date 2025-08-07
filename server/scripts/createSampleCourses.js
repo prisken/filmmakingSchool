@@ -20,7 +20,7 @@ const createSampleCourses = async () => {
     }
 
     // Clear existing sample courses
-    await Course.deleteMany({ instructor: teacherUser._id });
+    await Course.deleteMany({});
     console.log('🗑️ Cleared existing sample courses');
 
     // Create sample courses
