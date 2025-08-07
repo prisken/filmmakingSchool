@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import axios from 'axios';
+import api from '../config/api';
 import { useLanguage } from '../contexts/LanguageContext';
 import { 
   Search, 
@@ -27,7 +27,7 @@ const CoursesPage = () => {
   const { data: responseData, isLoading, error } = useQuery(
     ['courses'],
     async () => {
-      const response = await axios.get('/api/courses');
+      const response = await api.get('/api/courses');
       return response.data;
     },
     {
