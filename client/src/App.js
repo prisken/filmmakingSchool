@@ -135,7 +135,7 @@ function App() {
                             path="admin/*" 
                             element={
                               <AdminRoute>
-                                <div>Admin Dashboard (Coming Soon)</div>
+                                <DashboardPage />
                               </AdminRoute>
                             } 
                           />
