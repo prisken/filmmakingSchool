@@ -118,6 +118,16 @@ export const AuthProvider = ({ children }) => {
       });
 
       toast.success('登录成功！');
+      
+      // Redirect to appropriate dashboard based on user role
+      if (user.role === 'admin') {
+        window.location.href = '/dashboard';
+      } else if (user.role === 'teacher') {
+        window.location.href = '/dashboard';
+      } else if (user.role === 'student') {
+        window.location.href = '/dashboard';
+      }
+      
       return { success: true };
     } catch (error) {
       const message = error.response?.data?.message || '登录失败，请重试';
@@ -143,6 +153,10 @@ export const AuthProvider = ({ children }) => {
       });
 
       toast.success('注册成功！');
+      
+      // Redirect to dashboard after successful registration
+      window.location.href = '/dashboard';
+      
       return { success: true };
     } catch (error) {
       const message = error.response?.data?.message || '注册失败，请重试';

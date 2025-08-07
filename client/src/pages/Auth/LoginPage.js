@@ -1,13 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import useAuth from '../../hooks/useAuth';
 
 const LoginPage = () => {
-  const { login } = useAuth();
+  const { login, user, loading } = useAuth();
   const [formData, setFormData] = useState({
     email: '',
     password: ''
   });
   const [showTestCredentials, setShowTestCredentials] = useState(false);
+
+  // Redirect to dashboard if user is already logged in
+  useEffect(() => {
+    if (user && !loading) {
+      window.location.href = '/dashboard';
+    }
+  }, [user, loading]);
 
   const testCredentials = [
     {
@@ -46,6 +53,18 @@ const LoginPage = () => {
   const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text);
   };
+
+  // Show loading spinner while checking authentication
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600 dark:text-gray-400">加载中... / Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
