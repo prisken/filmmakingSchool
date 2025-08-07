@@ -60,8 +60,8 @@ const EventsPage = () => {
     { value: 'cinematography', label: '摄影' },
     { value: 'editing', label: '剪辑' },
     { value: 'screenwriting', label: '编剧' },
-    { value: 'sound-design', label: '音效设计' },
-    { value: 'production-design', label: '美术设计' },
+    { value: 'sound-design', label: '音效' },
+    { value: 'production-design', label: '美术' },
     { value: 'acting', label: '表演' },
     { value: 'documentary', label: '纪录片' },
     { value: 'commercial', label: '广告' },
@@ -230,17 +230,17 @@ const EventsPage = () => {
             placeholder="搜索活动..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent bg-white text-gray-900"
           />
         </div>
         <div>
           <select
             value={selectedType}
             onChange={(e) => setSelectedType(e.target.value)}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+            className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent bg-white text-gray-900 min-w-[120px]"
           >
             {eventTypes.map(type => (
-              <option key={type.value} value={type.value}>
+              <option key={type.value} value={type.value} className="text-gray-900">
                 {type.label}
               </option>
             ))}
@@ -250,10 +250,10 @@ const EventsPage = () => {
           <select
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+            className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent bg-white text-gray-900 min-w-[120px]"
           >
             {categories.map(category => (
-              <option key={category.value} value={category.value}>
+              <option key={category.value} value={category.value} className="text-gray-900">
                 {category.label}
               </option>
             ))}
