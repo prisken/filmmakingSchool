@@ -3,6 +3,7 @@ require('dotenv').config();
 
 // Import the individual scripts
 const createTestUsers = require('./createTestUsers');
+const createSampleCourses = require('./createSampleCourses');
 const createSampleBlogPosts = require('./createSampleBlogPosts');
 const createSampleEvents = require('./createSampleEvents');
 const createSampleForumPosts = require('./createSampleForumPosts');
@@ -21,24 +22,30 @@ const createAllSampleData = async () => {
     await createTestUsers();
     console.log('✅ Test users created\n');
 
-    // Step 2: Create sample blog posts
-    console.log('📝 Step 2: Creating sample blog posts...');
+    // Step 2: Create sample courses
+    console.log('📝 Step 2: Creating sample courses...');
+    await createSampleCourses();
+    console.log('✅ Sample courses created\n');
+
+    // Step 3: Create sample blog posts
+    console.log('📝 Step 3: Creating sample blog posts...');
     await createSampleBlogPosts();
     console.log('✅ Sample blog posts created\n');
 
-    // Step 3: Create sample events
-    console.log('📝 Step 3: Creating sample events...');
+    // Step 4: Create sample events
+    console.log('📝 Step 4: Creating sample events...');
     await createSampleEvents();
     console.log('✅ Sample events created\n');
 
-    // Step 4: Create sample forum posts
-    console.log('📝 Step 4: Creating sample forum posts...');
+    // Step 5: Create sample forum posts
+    console.log('📝 Step 5: Creating sample forum posts...');
     await createSampleForumPosts();
     console.log('✅ Sample forum posts created\n');
 
     console.log('🎉 All sample data created successfully!');
     console.log('\n📋 Summary:');
     console.log('   - 3 test users (Admin, Teacher, Student)');
+    console.log('   - 4 sample courses (3 published, 1 draft, 1 free)');
     console.log('   - 4 sample blog posts (2 published, 1 draft, 1 English)');
     console.log('   - 4 sample events (2 published, 1 draft, 1 registration-open)');
     console.log('   - 6 sample forum posts (various types and categories)');

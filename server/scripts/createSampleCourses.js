@@ -1,357 +1,277 @@
 const mongoose = require('mongoose');
-const User = require('../models/User');
-const Course = require('../models/Course');
-const Lesson = require('../models/Lesson');
 require('dotenv').config();
 
-const sampleCourses = [
-  {
-    title: "电影制作基础：从概念到完成",
-    subtitle: "学习专业的电影制作技能，从剧本创作到后期制作",
-    description: "这是一个全面的电影制作课程，涵盖从创意构思到最终成片的完整流程。适合初学者和有经验的电影制作人。",
-    longDescription: "在这个综合课程中，您将学习电影制作的核心技能，包括剧本创作、摄影技巧、导演艺术、后期制作等。通过实践项目和专家指导，您将掌握制作专业质量电影所需的所有技能。课程采用理论与实践相结合的方式，让您在学习过程中获得真实的制作经验。",
-    category: "directing",
-    level: "beginner",
-    thumbnail: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=800&h=450&fit=crop",
-    previewVideo: "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
-    price: 299,
-    originalPrice: 399,
-    currency: "CNY",
-    isFree: false,
-    status: "published",
-    publishedAt: new Date(),
-    prerequisites: [
-      "基本的计算机操作技能",
-      "对电影制作有浓厚兴趣",
-      "愿意投入时间学习和实践"
-    ],
-    learningOutcomes: [
-      "掌握电影制作的基本原理和技术",
-      "学会编写和开发剧本",
-      "理解摄影构图和镜头语言",
-      "掌握基本的后期制作技能",
-      "能够独立完成短片制作"
-    ],
-    requirements: [
-      "电脑（Windows或Mac）",
-      "视频编辑软件（推荐Adobe Premiere Pro或DaVinci Resolve）",
-      "智能手机或相机用于拍摄"
-    ],
-    tags: ["电影制作", "导演", "摄影", "剧本", "后期制作", "短片"],
-    features: {
-      certificate: true,
-      lifetimeAccess: true,
-      downloadableContent: true,
-      liveSessions: false,
-      oneOnOneSupport: false
-    },
-    forumEnabled: true,
-    slug: "filmmaking-basics-complete-guide",
-    totalDuration: 1200,
-    totalLessons: 24
-  },
-  {
-    title: "高级摄影技巧与镜头语言",
-    subtitle: "掌握专业摄影技术，提升画面质量和视觉表现力",
-    description: "深入学习摄影技巧，掌握镜头语言，提升您的视觉叙事能力。",
-    longDescription: "本课程专注于高级摄影技巧和镜头语言的运用。您将学习如何通过镜头选择、构图技巧、光线运用等方式来增强故事的视觉冲击力。课程包含大量实际案例分析和实践练习。",
-    category: "cinematography",
-    level: "intermediate",
-    thumbnail: "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=800&h=450&fit=crop",
-    price: 399,
-    originalPrice: 499,
-    currency: "CNY",
-    isFree: false,
-    status: "published",
-    publishedAt: new Date(),
-    prerequisites: [
-      "基础摄影知识",
-      "了解基本镜头类型",
-      "有拍摄经验"
-    ],
-    learningOutcomes: [
-      "掌握高级摄影构图技巧",
-      "理解不同镜头的视觉效果",
-      "学会运用光线创造氛围",
-      "提升视觉叙事能力"
-    ],
-    requirements: [
-      "专业相机设备",
-      "多种镜头选择",
-      "基础摄影软件"
-    ],
-    tags: ["摄影", "镜头语言", "构图", "光线", "视觉叙事"],
-    features: {
-      certificate: true,
-      lifetimeAccess: true,
-      downloadableContent: true,
-      liveSessions: true,
-      oneOnOneSupport: false
-    },
-    forumEnabled: true,
-    slug: "advanced-cinematography-techniques",
-    totalDuration: 900,
-    totalLessons: 18
-  },
-  {
-    title: "后期制作精修技巧",
-    subtitle: "学习专业的后期制作技能，让作品更加完美",
-    description: "从剪辑到调色，从音效到特效，掌握完整的后期制作流程。",
-    longDescription: "后期制作是电影制作的关键环节。本课程将教授您从粗剪到精剪，从调色到音效处理的完整后期制作流程。使用行业标准软件，学习专业的工作流程和技巧。",
-    category: "editing",
-    level: "intermediate",
-    thumbnail: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&h=450&fit=crop",
-    price: 499,
-    originalPrice: 599,
-    currency: "CNY",
-    isFree: false,
-    status: "published",
-    publishedAt: new Date(),
-    prerequisites: [
-      "基础视频编辑经验",
-      "熟悉Adobe Premiere Pro或DaVinci Resolve",
-      "了解基本剪辑原理"
-    ],
-    learningOutcomes: [
-      "掌握专业剪辑技巧",
-      "学会调色和色彩校正",
-      "理解音效处理流程",
-      "能够完成专业级后期制作"
-    ],
-    requirements: [
-      "Adobe Premiere Pro或DaVinci Resolve",
-      "After Effects（可选）",
-      "Audition或类似音频软件"
-    ],
-    tags: ["后期制作", "剪辑", "调色", "音效", "特效"],
-    features: {
-      certificate: true,
-      lifetimeAccess: true,
-      downloadableContent: true,
-      liveSessions: false,
-      oneOnOneSupport: true
-    },
-    forumEnabled: true,
-    slug: "post-production-mastery",
-    totalDuration: 1500,
-    totalLessons: 30
-  },
-  {
-    title: "剧本创作与故事结构",
-    subtitle: "学习专业的剧本写作技巧，创作引人入胜的故事",
-    description: "从创意构思到完整剧本，掌握专业的故事创作方法。",
-    longDescription: "好的故事是成功电影的基础。本课程将教授您如何从创意构思开始，逐步构建完整的故事结构，最终创作出引人入胜的剧本。课程涵盖角色塑造、情节发展、对话写作等核心技能。",
-    category: "screenwriting",
-    level: "beginner",
-    thumbnail: "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800&h=450&fit=crop",
-    price: 199,
-    originalPrice: 299,
-    currency: "CNY",
-    isFree: false,
-    status: "published",
-    publishedAt: new Date(),
-    prerequisites: [
-      "对写作有浓厚兴趣",
-      "愿意投入时间练习",
-      "有创意想法"
-    ],
-    learningOutcomes: [
-      "掌握故事结构原理",
-      "学会角色塑造技巧",
-      "理解剧本格式规范",
-      "能够创作完整剧本"
-    ],
-    requirements: [
-      "文字处理软件",
-      "笔记本和笔",
-      "创意思维"
-    ],
-    tags: ["剧本创作", "故事结构", "角色塑造", "对话写作", "创意写作"],
-    features: {
-      certificate: true,
-      lifetimeAccess: true,
-      downloadableContent: true,
-      liveSessions: false,
-      oneOnOneSupport: false
-    },
-    forumEnabled: true,
-    slug: "screenwriting-story-structure",
-    totalDuration: 600,
-    totalLessons: 12
-  },
-  {
-    title: "音效设计与音频制作",
-    subtitle: "掌握专业音效设计技巧，提升作品音质",
-    description: "学习音效设计、音频编辑和混音技术，为您的作品添加专业音效。",
-    longDescription: "音效是电影体验的重要组成部分。本课程将教授您如何设计、录制、编辑和混音，为您的作品创造专业的音频体验。从环境音到配乐，从对话到音效，全面掌握音频制作技能。",
-    category: "sound-design",
-    level: "intermediate",
-    thumbnail: "https://images.unsplash.com/photo-1598653222000-6b7b7a552625?w=800&h=450&fit=crop",
-    price: 349,
-    originalPrice: 449,
-    currency: "CNY",
-    isFree: false,
-    status: "published",
-    publishedAt: new Date(),
-    prerequisites: [
-      "基础音频知识",
-      "了解音频软件",
-      "有录音经验"
-    ],
-    learningOutcomes: [
-      "掌握音效设计原理",
-      "学会音频编辑技巧",
-      "理解混音技术",
-      "能够制作专业音效"
-    ],
-    requirements: [
-      "音频编辑软件（如Audition、Pro Tools）",
-      "录音设备",
-      "监听耳机或音箱"
-    ],
-    tags: ["音效设计", "音频制作", "混音", "录音", "配乐"],
-    features: {
-      certificate: true,
-      lifetimeAccess: true,
-      downloadableContent: true,
-      liveSessions: false,
-      oneOnOneSupport: false
-    },
-    forumEnabled: true,
-    slug: "sound-design-audio-production",
-    totalDuration: 800,
-    totalLessons: 16
-  }
-];
+// Import models
+const Course = require('../models/Course');
+const User = require('../models/User');
 
-const sampleLessons = [
-  {
-    title: "课程介绍和概述",
-    description: "了解课程结构和学习目标，为学习之旅做好准备",
-    videoUrl: "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
-    thumbnailUrl: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=400&h=225&fit=crop",
-    duration: 180,
-    order: 1,
-    isFree: true,
-    status: "published",
-    transcript: `欢迎来到电影制作基础课程！
-
-在这个课程中，我们将从零开始学习电影制作的艺术。无论您是初学者还是有经验的创作者，这个课程都将为您提供宝贵的知识和技能。
-
-课程结构：
-- 第1-3章：基础理论和概念
-- 第4-7章：实践技能训练
-- 第8-10章：项目制作和完成
-
-学习目标：
-1. 掌握电影制作的基本原理
-2. 学会编写和开发剧本
-3. 理解摄影构图和镜头语言
-4. 掌握基本的后期制作技能
-5. 能够独立完成短片制作
-
-让我们开始这个激动人心的学习之旅吧！`,
-    resources: [
-      {
-        title: "课程大纲",
-        type: "pdf",
-        url: "https://example.com/course-outline.pdf",
-        description: "详细的课程大纲和学习计划"
-      }
-    ]
-  },
-  {
-    title: "电影制作的基本原理",
-    description: "了解电影制作的核心概念和理论",
-    videoUrl: "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
-    thumbnailUrl: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=400&h=225&fit=crop",
-    duration: 240,
-    order: 2,
-    isFree: false,
-    status: "published",
-    transcript: `电影制作的基本原理
-
-电影制作是一门综合艺术，涉及多个领域的知识和技能。在本节课中，我们将探讨电影制作的核心原理。
-
-主要内容：
-1. 视觉语言基础
-2. 叙事结构原理
-3. 时间与空间概念
-4. 观众心理学
-
-这些基本原理将贯穿整个课程，为后续的实践学习奠定坚实基础。`,
-    resources: [
-      {
-        title: "视觉语言指南",
-        type: "pdf",
-        url: "https://example.com/visual-language-guide.pdf",
-        description: "视觉语言基础概念和示例"
-      }
-    ]
-  }
-];
-
-async function createSampleCourses() {
+const createSampleCourses = async () => {
   try {
     // Connect to MongoDB
-    await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/filmmaker-school');
+    const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/filmmaker-school';
+    await mongoose.connect(mongoURI);
     console.log('✅ Connected to MongoDB');
 
-    // Get a teacher user to assign as instructor
-    const teacher = await User.findOne({ role: 'teacher' });
-    if (!teacher) {
-      console.log('❌ No teacher found. Please run createTestUsers.js first.');
+    // Get teacher user
+    const teacherUser = await User.findOne({ email: 'teacher@filmmakerschool.com' });
+    if (!teacherUser) {
+      console.log('❌ Teacher user not found. Please run createTestUsers.js first.');
       return;
     }
 
     // Clear existing sample courses
-    await Course.deleteMany({
-      slug: { $in: sampleCourses.map(course => course.slug) }
-    });
-    console.log('🗑️  Cleared existing sample courses');
+    await Course.deleteMany({ instructor: teacherUser._id });
+    console.log('🗑️ Cleared existing sample courses');
 
-    // Create courses
-    for (const courseData of sampleCourses) {
-      const course = new Course({
-        ...courseData,
-        instructor: teacher._id
-      });
-      await course.save();
-      console.log(`✅ Created course: ${courseData.title}`);
+    // Create sample courses
+    const sampleCourses = [
+      {
+        title: "电影制作基础入门",
+        subtitle: "从零开始学习电影制作",
+        description: "适合初学者的电影制作基础课程，涵盖摄影、剪辑和故事讲述的基本技能。",
+        longDescription: `在这个全面的入门课程中，您将学习电影制作的核心概念和实践技能。
 
-      // Create lessons for the first course
-      if (course.slug === 'filmmaking-basics-complete-guide') {
-        for (const lessonData of sampleLessons) {
-          const lesson = new Lesson({
-            ...lessonData,
-            course: course._id
-          });
-          await lesson.save();
-          console.log(`  📚 Created lesson: ${lessonData.title}`);
-        }
+## 课程内容
+- 电影制作流程概述
+- 基础摄影技巧
+- 简单剪辑操作
+- 故事结构设计
+- 团队协作方法
 
-        // Update course with lessons
-        const lessons = await Lesson.find({ course: course._id });
-        course.lessons = lessons.map(l => l._id);
-        await course.save();
+## 适合人群
+- 电影制作初学者
+- 对影视行业感兴趣的学生
+- 想要提升创作技能的个人
+
+## 学习成果
+完成课程后，您将能够：
+- 独立完成简单的短片制作
+- 掌握基本的拍摄和剪辑技巧
+- 理解电影制作的工作流程
+- 为进阶学习打下坚实基础`,
+        category: "directing",
+        level: "beginner",
+        thumbnail: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=800&h=450&fit=crop",
+        price: 199,
+        originalPrice: 299,
+        currency: "CNY",
+        isFree: false,
+        status: "published",
+        publishedAt: new Date(),
+        prerequisites: ["对电影制作有兴趣", "基本的电脑操作能力"],
+        learningOutcomes: [
+          "了解电影制作基本流程",
+          "掌握基础摄影技巧",
+          "学会简单剪辑操作",
+          "理解故事结构设计",
+          "掌握团队协作方法"
+        ],
+        requirements: ["电脑", "智能手机", "剪辑软件"],
+        tags: ["电影制作", "入门", "基础", "摄影", "剪辑"],
+        features: {
+          certificate: true,
+          lifetimeAccess: true,
+          downloadableContent: true,
+          liveSessions: false,
+          oneOnOneSupport: false,
+          mobileAccess: true,
+          offlineDownload: false,
+          exerciseFiles: true,
+          closedCaptions: true,
+          multipleLanguages: false
+        },
+        forumEnabled: true,
+        slug: "filmmaking-basics-intro",
+        totalDuration: 300,
+        totalLessons: 5,
+        estimatedTime: "5h",
+        version: "1.0",
+        difficulty: "beginner",
+        instructor: teacherUser._id
+      },
+      {
+        title: "高级摄影技巧",
+        subtitle: "掌握专业级摄影技术",
+        description: "深入学习电影摄影的高级技巧，包括构图、光影控制和镜头语言。",
+        longDescription: `这个高级课程专为有一定基础的学员设计，深入探讨电影摄影的艺术和技术。
+
+## 高级技巧
+- 复杂构图设计
+- 专业光影控制
+- 镜头语言运用
+- 色彩理论应用
+- 运动摄影技巧
+
+## 实践项目
+- 短片摄影项目
+- 光影实验
+- 构图练习
+- 色彩调色`,
+        category: "cinematography",
+        level: "advanced",
+        thumbnail: "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=800&h=450&fit=crop",
+        price: 599,
+        originalPrice: 799,
+        currency: "CNY",
+        isFree: false,
+        status: "published",
+        publishedAt: new Date(),
+        prerequisites: ["基础摄影知识", "熟悉摄影设备", "有短片制作经验"],
+        learningOutcomes: [
+          "掌握高级构图技巧",
+          "精通光影控制",
+          "运用专业镜头语言",
+          "理解色彩理论",
+          "掌握运动摄影"
+        ],
+        requirements: ["专业摄影设备", "剪辑软件", "调色软件"],
+        tags: ["摄影", "高级", "构图", "光影", "专业"],
+        features: {
+          certificate: true,
+          lifetimeAccess: true,
+          downloadableContent: true,
+          liveSessions: true,
+          oneOnOneSupport: true,
+          mobileAccess: true,
+          offlineDownload: true,
+          exerciseFiles: true,
+          closedCaptions: true,
+          multipleLanguages: false
+        },
+        forumEnabled: true,
+        slug: "advanced-cinematography",
+        totalDuration: 600,
+        totalLessons: 8,
+        estimatedTime: "10h",
+        version: "1.0",
+        difficulty: "advanced",
+        instructor: teacherUser._id
+      },
+      {
+        title: "免费剪辑入门",
+        subtitle: "使用免费软件学习视频剪辑",
+        description: "使用免费软件学习视频剪辑的基础技能，适合预算有限的初学者。",
+        longDescription: `这个免费课程将教您使用免费软件进行视频剪辑，让您无需投资昂贵的软件就能开始学习。
+
+## 免费软件介绍
+- DaVinci Resolve (免费版)
+- OpenShot
+- Shotcut
+- 其他免费替代品
+
+## 学习内容
+- 基础剪辑操作
+- 转场效果应用
+- 音频处理
+- 导出设置`,
+        category: "editing",
+        level: "beginner",
+        thumbnail: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&h=450&fit=crop",
+        price: 0,
+        originalPrice: 0,
+        currency: "CNY",
+        isFree: true,
+        status: "published",
+        publishedAt: new Date(),
+        prerequisites: ["基本的电脑操作能力"],
+        learningOutcomes: [
+          "掌握免费剪辑软件",
+          "学会基础剪辑操作",
+          "应用转场效果",
+          "处理音频",
+          "正确导出视频"
+        ],
+        requirements: ["电脑", "免费剪辑软件"],
+        tags: ["剪辑", "免费", "入门", "软件"],
+        features: {
+          certificate: true,
+          lifetimeAccess: true,
+          downloadableContent: true,
+          liveSessions: false,
+          oneOnOneSupport: false,
+          mobileAccess: true,
+          offlineDownload: false,
+          exerciseFiles: true,
+          closedCaptions: true,
+          multipleLanguages: false
+        },
+        forumEnabled: true,
+        slug: "free-editing-basics",
+        totalDuration: 240,
+        totalLessons: 4,
+        estimatedTime: "4h",
+        version: "1.0",
+        difficulty: "beginner",
+        instructor: teacherUser._id
+      },
+      {
+        title: "编剧大师课",
+        subtitle: "学习专业编剧技巧",
+        description: "由资深编剧主讲的专业编剧课程，涵盖故事结构、角色发展和剧本写作。",
+        longDescription: `这个大师课将带您深入了解编剧的艺术，从故事构思到最终剧本的完整创作过程。
+
+## 课程模块
+- 故事结构设计
+- 角色发展技巧
+- 对话写作艺术
+- 剧本格式规范
+- 市场分析
+
+## 实践练习
+- 短剧本创作
+- 角色设计练习
+- 对话写作训练`,
+        category: "screenwriting",
+        level: "intermediate",
+        thumbnail: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&h=450&fit=crop",
+        price: 399,
+        originalPrice: 499,
+        currency: "CNY",
+        isFree: false,
+        status: "draft",
+        publishedAt: null,
+        prerequisites: ["基础写作能力", "对故事创作有兴趣"],
+        learningOutcomes: [
+          "掌握故事结构设计",
+          "学会角色发展技巧",
+          "精通对话写作",
+          "了解剧本格式",
+          "掌握市场分析"
+        ],
+        requirements: ["电脑", "文字处理软件"],
+        tags: ["编剧", "故事", "角色", "剧本"],
+        features: {
+          certificate: true,
+          lifetimeAccess: true,
+          downloadableContent: true,
+          liveSessions: true,
+          oneOnOneSupport: false,
+          mobileAccess: true,
+          offlineDownload: false,
+          exerciseFiles: true,
+          closedCaptions: true,
+          multipleLanguages: false
+        },
+        forumEnabled: true,
+        slug: "screenwriting-masterclass",
+        totalDuration: 480,
+        totalLessons: 6,
+        estimatedTime: "8h",
+        version: "1.0",
+        difficulty: "intermediate",
+        instructor: teacherUser._id
       }
-    }
+    ];
+
+    // Insert courses
+    const createdCourses = await Course.insertMany(sampleCourses);
+    console.log('✅ Created sample courses:');
+    
+    createdCourses.forEach(course => {
+      console.log(`   - ${course.status}: ${course.title} (${course.level}, ${course.isFree ? 'Free' : course.currency + ' ' + course.price})`);
+    });
 
     console.log('\n🎉 Sample courses created successfully!');
-    console.log('\n📋 Created Courses:');
-    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-    
-    sampleCourses.forEach(course => {
-      console.log(`\n🎬 ${course.title}`);
-      console.log(`   Category: ${course.category}`);
-      console.log(`   Level: ${course.level}`);
-      console.log(`   Price: ${course.currency} ${course.price}`);
-      console.log(`   Duration: ${course.totalDuration} minutes`);
-      console.log(`   Lessons: ${course.totalLessons}`);
-    });
-    
-    console.log('\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-    console.log('💡 You can now view these courses in the application!');
 
   } catch (error) {
     console.error('❌ Error creating sample courses:', error);
@@ -359,7 +279,7 @@ async function createSampleCourses() {
     await mongoose.disconnect();
     console.log('🔌 Disconnected from MongoDB');
   }
-}
+};
 
 // Run the script
 createSampleCourses(); 
