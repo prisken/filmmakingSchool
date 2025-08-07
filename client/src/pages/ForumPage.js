@@ -46,7 +46,7 @@ const ForumPage = () => {
   const fetchPosts = async () => {
     try {
       setLoading(true);
-      const response = await api.get(`/api/forum/posts${selectedCategory !== 'all' ? `?category=${selectedCategory}` : ''}`);
+      const response = await api.get(`/api/forum${selectedCategory !== 'all' ? `?category=${selectedCategory}` : ''}`);
       setPosts(response.data.posts || []);
     } catch (error) {
       console.error('Error fetching posts:', error);
@@ -59,7 +59,7 @@ const ForumPage = () => {
   const handleCreatePost = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post('/api/forum/posts', newPost);
+      const response = await api.post('/api/forum', newPost);
       toast.success('帖子创建成功！ / Post created successfully!');
       setShowCreateForm(false);
       setNewPost({ title: '', content: '', category: 'general', type: 'discussion', tags: [] });
@@ -75,7 +75,7 @@ const ForumPage = () => {
       return;
     }
     try {
-      await api.delete(`/api/forum/posts/${postId}`);
+      await api.delete(`/api/forum/${postId}`);
       toast.success('帖子删除成功！ / Post deleted successfully!');
       fetchPosts();
     } catch (error) {
@@ -86,7 +86,7 @@ const ForumPage = () => {
 
   const handleLike = async (postId) => {
     try {
-      await api.post(`/api/forum/posts/${postId}/like`);
+      await api.post(`/api/forum/${postId}/like`);
       fetchPosts();
     } catch (error) {
       console.error('Error liking post:', error);

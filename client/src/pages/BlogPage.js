@@ -49,7 +49,7 @@ const BlogPage = () => {
   const fetchPosts = async () => {
     try {
       setLoading(true);
-      const response = await api.get(`/api/blog/posts${selectedCategory !== 'all' ? `?category=${selectedCategory}` : ''}`);
+      const response = await api.get(`/api/blog${selectedCategory !== 'all' ? `?category=${selectedCategory}` : ''}`);
       setPosts(response.data.posts || []);
     } catch (error) {
       console.error('Error fetching posts:', error);
@@ -62,7 +62,7 @@ const BlogPage = () => {
   const handleCreatePost = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post('/api/blog/posts', newPost);
+      const response = await api.post('/api/blog', newPost);
       toast.success('博客文章创建成功！ / Blog post created successfully!');
       setShowCreateForm(false);
       setNewPost({
@@ -88,7 +88,7 @@ const BlogPage = () => {
       return;
     }
     try {
-      await api.delete(`/api/blog/posts/${postId}`);
+      await api.delete(`/api/blog/${postId}`);
       toast.success('博客文章删除成功！ / Blog post deleted successfully!');
       fetchPosts();
     } catch (error) {
@@ -99,7 +99,7 @@ const BlogPage = () => {
 
   const handlePublishPost = async (postId) => {
     try {
-      await api.put(`/api/blog/posts/${postId}`, { status: 'published' });
+      await api.put(`/api/blog/${postId}`, { status: 'published' });
       toast.success('博客文章发布成功！ / Blog post published successfully!');
       fetchPosts();
     } catch (error) {
