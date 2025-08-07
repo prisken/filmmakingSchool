@@ -158,7 +158,7 @@ const ForumPage = () => {
         <div className="mb-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
           <h3 className="text-xl font-semibold mb-4">创建新帖子 / Create New Post</h3>
           <form onSubmit={handleCreatePost}>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
               <div>
                 <label className="block text-sm font-medium mb-2">标题 / Title</label>
                 <input
@@ -241,14 +241,16 @@ const ForumPage = () => {
                   <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
                     {post.title}
                   </h3>
-                  <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400">
+                  <div className="flex flex-wrap items-center gap-3 text-sm text-gray-600 dark:text-gray-400">
                     <span className="flex items-center gap-1">
                       <User size={16} />
-                      {post.author?.name || 'Unknown'}
+                      <span className="hidden sm:inline">{post.author?.name || 'Unknown'}</span>
+                      <span className="sm:hidden">{post.author?.name?.split(' ')[0] || 'Unknown'}</span>
                     </span>
                     <span className="flex items-center gap-1">
                       <Calendar size={16} />
-                      {formatDate(post.createdAt)}
+                      <span className="hidden sm:inline">{formatDate(post.createdAt)}</span>
+                      <span className="sm:hidden">{formatDate(post.createdAt).split(' ')[0]}</span>
                     </span>
                     <span className="px-2 py-1 bg-red-100 text-red-800 rounded-full text-xs">
                       {post.type}
@@ -275,7 +277,7 @@ const ForumPage = () => {
                 {post.content}
               </p>
               
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                 <div className="flex items-center gap-4">
                   <button
                     onClick={() => handleLike(post._id)}

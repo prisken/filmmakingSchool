@@ -157,7 +157,7 @@ const CourseDetailPage = () => {
       {/* Course Header */}
       <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
             {/* Course Info */}
             <div className="lg:col-span-2">
               <div className="mb-4">
@@ -173,7 +173,7 @@ const CourseDetailPage = () => {
               </p>
               
               {/* Course Stats */}
-              <div className="flex flex-wrap items-center gap-6 text-sm text-gray-600 dark:text-gray-400 mb-6">
+              <div className="flex flex-wrap items-center gap-4 lg:gap-6 text-sm text-gray-600 dark:text-gray-400 mb-6">
                 <div className="flex items-center">
                   <Star className="w-4 h-4 mr-1 text-yellow-400 fill-current" />
                   <span>{course.averageRating?.toFixed(1) || '0'} ({course.totalRatings || 0})</span>

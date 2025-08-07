@@ -149,7 +149,7 @@ const HomePage = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {/* Sample Course Cards */}
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
               <div className="aspect-video bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
@@ -162,11 +162,11 @@ const HomePage = () => {
                 <p className="text-gray-600 dark:text-gray-400 mb-4">
                   学习专业的电影制作技能，从剧本创作到后期制作
                 </p>
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                   <span className="text-2xl font-bold text-red-600">¥299</span>
                   <Link
                     to="/courses"
-                    className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
+                    className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors text-center"
                   >
                     {t('courses.viewCourse')}
                   </Link>
@@ -185,11 +185,11 @@ const HomePage = () => {
                 <p className="text-gray-600 dark:text-gray-400 mb-4">
                   掌握高级摄影技巧，提升画面质量和视觉表现力
                 </p>
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                   <span className="text-2xl font-bold text-red-600">¥399</span>
                   <Link
                     to="/courses"
-                    className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
+                    className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors text-center"
                   >
                     {t('courses.viewCourse')}
                   </Link>
@@ -208,11 +208,11 @@ const HomePage = () => {
                 <p className="text-gray-600 dark:text-gray-400 mb-4">
                   学习专业的后期制作技巧，让作品更加完美
                 </p>
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                   <span className="text-2xl font-bold text-red-600">¥499</span>
                   <Link
                     to="/courses"
-                    className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
+                    className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors text-center"
                   >
                     {t('courses.viewCourse')}
                   </Link>

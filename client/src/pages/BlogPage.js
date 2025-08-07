@@ -178,7 +178,7 @@ const BlogPage = () => {
           <div className="mb-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
             <h3 className="text-xl font-semibold mb-4">创建新博客文章 / Create New Blog Post</h3>
             <form onSubmit={handleCreatePost}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                 <div>
                   <label className="block text-sm font-medium mb-2">标题 / Title</label>
                   <input
@@ -200,7 +200,7 @@ const BlogPage = () => {
                 </div>
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
                 <div>
                   <label className="block text-sm font-medium mb-2">分类 / Category</label>
                   <select
@@ -292,7 +292,7 @@ const BlogPage = () => {
         )}
 
         {/* Blog Posts Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {posts.length === 0 ? (
             <div className="col-span-full text-center py-12">
               <BookOpen size={48} className="mx-auto text-gray-400 mb-4" />
@@ -348,24 +348,24 @@ const BlogPage = () => {
                     {post.excerpt || post.content.substring(0, 150)}...
                   </p>
                   
-                  <div className="flex items-center justify-between text-sm text-gray-600 dark:text-gray-400 mb-4">
-                    <div className="flex items-center gap-4">
-                      <span className="flex items-center gap-1">
-                        <User size={14} />
-                        {post.author?.name || 'Unknown'}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Calendar size={14} />
-                        {formatDate(post.createdAt)}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <BookOpen size={14} />
-                        {getReadingTime(post.content)} min read
-                      </span>
+                  <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 dark:text-gray-400 mb-4">
+                    <div className="flex items-center gap-1">
+                      <User size={14} />
+                      <span className="hidden sm:inline">{post.author?.name || 'Unknown'}</span>
+                      <span className="sm:hidden">{post.author?.name?.split(' ')[0] || 'Unknown'}</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Calendar size={14} />
+                      <span className="hidden sm:inline">{formatDate(post.createdAt)}</span>
+                      <span className="sm:hidden">{formatDate(post.createdAt).split(' ')[0]}</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <BookOpen size={14} />
+                      <span>{getReadingTime(post.content)} min</span>
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                     <div className="flex items-center gap-4">
                       <span className="flex items-center gap-1 text-gray-600">
                         <Eye size={14} />

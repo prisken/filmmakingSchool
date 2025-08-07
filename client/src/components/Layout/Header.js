@@ -6,7 +6,8 @@ import { useTheme } from '../../contexts/ThemeContext';
 import { Menu, X, Globe, Sun, Moon, User, LogOut } from 'lucide-react';
 
 const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const { user, logout } = useAuth();
   const { currentLanguage, changeLanguage, t } = useLanguage();
   const { isDark, toggleTheme } = useTheme();
@@ -32,7 +33,7 @@ const Header = () => {
               <div className="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-sm">F</span>
               </div>
-              <span className="ml-2 text-xl font-bold text-gray-900 dark:text-white">
+              <span className="ml-2 text-lg sm:text-xl font-bold text-gray-900 dark:text-white">
                 电影制作学校
               </span>
             </Link>
@@ -56,7 +57,7 @@ const Header = () => {
           </nav>
 
           {/* Right side controls */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2 sm:space-x-4">
             {/* Language Switcher */}
             <button
               onClick={() => changeLanguage(currentLanguage === 'zh' ? 'en' : 'zh')}
@@ -79,33 +80,33 @@ const Header = () => {
             {user ? (
               <div className="relative">
                 <button
-                  onClick={() => setIsMenuOpen(!isMenuOpen)}
+                  onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
                   className="flex items-center space-x-2 p-2 rounded-md text-gray-700 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400 transition-colors"
                 >
                   <User size={20} />
                   <span className="hidden sm:block">{user.firstName}</span>
                 </button>
 
-                {isMenuOpen && (
+                {isUserMenuOpen && (
                   <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 z-50 border border-gray-200 dark:border-gray-700">
                     <Link
                       to="/dashboard"
                       className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
-                      onClick={() => setIsMenuOpen(false)}
+                      onClick={() => setIsUserMenuOpen(false)}
                     >
                       {t('nav.dashboard')}
                     </Link>
                     <Link
                       to="/profile"
                       className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
-                      onClick={() => setIsMenuOpen(false)}
+                      onClick={() => setIsUserMenuOpen(false)}
                     >
                       {t('nav.profile')}
                     </Link>
                     <button
                       onClick={() => {
                         logout();
-                        setIsMenuOpen(false);
+                        setIsUserMenuOpen(false);
                       }}
                       className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                     >
@@ -115,7 +116,7 @@ const Header = () => {
                 )}
               </div>
             ) : (
-              <div className="flex items-center space-x-2">
+              <div className="hidden sm:flex items-center space-x-2">
                 <Link
                   to="/login"
                   className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400 transition-colors"
@@ -133,16 +134,16 @@ const Header = () => {
 
             {/* Mobile menu button */}
             <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="md:hidden p-2 text-gray-700 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400 transition-colors"
             >
-              {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
+              {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
         </div>
 
         {/* Mobile Navigation */}
-        {isMenuOpen && (
+        {isMobileMenuOpen && (
           <div className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t border-gray-200 dark:border-gray-700">
               {navigation.map((item) => (
@@ -151,14 +152,34 @@ const Header = () => {
                   to={item.href}
                   className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${
                     isActive(item.href)
-                      ? 'text-red-600 dark:text-red-400'
-                      : 'text-gray-700 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400'
+                      ? 'text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20'
+                      : 'text-gray-700 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400 hover:bg-gray-50 dark:hover:bg-gray-800'
                   }`}
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {item.name}
                 </Link>
               ))}
+              
+              {/* Mobile Auth Links */}
+              {!user && (
+                <div className="pt-4 pb-3 border-t border-gray-200 dark:border-gray-700">
+                  <Link
+                    to="/login"
+                    className="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {t('nav.login')}
+                  </Link>
+                  <Link
+                    to="/register"
+                    className="block px-3 py-2 text-base font-medium text-white bg-red-600 hover:bg-red-700 rounded-md mt-2"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {t('nav.register')}
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         )}

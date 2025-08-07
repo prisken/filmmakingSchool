@@ -224,7 +224,7 @@ const CoursesPage = () => {
           </div>
 
           {/* Filter Options */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mt-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mt-6">
             {/* Category Filter */}
             <div className="relative">
               <select
@@ -306,7 +306,7 @@ const CoursesPage = () => {
 
         {/* Course Grid */}
         {filteredCourses.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {filteredCourses.map((course) => (
               <div key={course._id} className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
                 {/* Course Image */}
@@ -349,7 +349,7 @@ const CoursesPage = () => {
                   </p>
 
                   {/* Course Stats */}
-                  <div className="flex items-center justify-between mb-4 text-sm text-gray-500 dark:text-gray-400">
+                  <div className="flex flex-wrap items-center gap-4 mb-4 text-sm text-gray-500 dark:text-gray-400">
                     <div className="flex items-center">
                       <Clock className="w-4 h-4 mr-1" />
                       <span>{formatDuration(course.totalDuration || 0)}</span>
@@ -386,7 +386,7 @@ const CoursesPage = () => {
                   )}
 
                   {/* Price and Action */}
-                  <div className="flex items-center justify-between">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                     <div className="flex items-center">
                       <span className="text-2xl font-bold text-red-600">
                         {formatPrice(course.price, course.currency)}
@@ -399,7 +399,7 @@ const CoursesPage = () => {
                     </div>
                     <Link
                       to={`/courses/${course.slug}`}
-                      className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors text-sm font-medium"
+                      className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors text-sm font-medium text-center"
                     >
                       {t('courses.viewCourse')}
                     </Link>
