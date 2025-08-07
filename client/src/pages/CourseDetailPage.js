@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from 'react-query';
-import axios from 'axios';
+import api from '../config/api';
 import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import { 
@@ -37,7 +37,7 @@ const CourseDetailPage = () => {
   const { data: responseData, isLoading, error } = useQuery(
     ['course', slug],
     async () => {
-      const response = await axios.get(`/api/courses/${slug}`);
+      const response = await api.get(`/api/courses/${slug}`);
       return response.data;
     },
     {
@@ -53,7 +53,7 @@ const CourseDetailPage = () => {
   const { data: lessonsResponse } = useQuery(
     ['course-lessons', slug],
     async () => {
-      const response = await axios.get(`/api/courses/${slug}/lessons`);
+      const response = await api.get(`/api/courses/${slug}/lessons`);
       return response.data;
     },
     {
@@ -68,7 +68,7 @@ const CourseDetailPage = () => {
   // Enrollment mutation
   const enrollMutation = useMutation(
     async () => {
-      const response = await axios.post(`/api/courses/${slug}/enroll`);
+      const response = await api.post(`/api/courses/${slug}/enroll`);
       return response.data;
     },
     {
