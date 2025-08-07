@@ -1,8 +1,7 @@
 import axios from 'axios';
 
 // Get the backend URL from environment variables or use a default
-// You'll need to update this with your actual Railway backend URL
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://filmmaking-school-production.up.railway.app';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://filmmakingschool-filmmaking-school.up.railway.app';
 
 // Create axios instance with base URL
 const api = axios.create({
