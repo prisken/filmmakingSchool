@@ -16,6 +16,7 @@ const forumRoutes = require('./server/routes/forum');
 const blogRoutes = require('./server/routes/blog');
 const eventRoutes = require('./server/routes/events');
 const uploadRoutes = require('./server/routes/upload');
+const setupRoutes = require('./server/routes/setup');
 
 const app = express();
 
@@ -72,6 +73,7 @@ app.use('/api/forum', forumRoutes);
 app.use('/api/blog', blogRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/upload', uploadRoutes);
+app.use('/api/setup', setupRoutes);
 
 // Serve React app in production
 if (process.env.NODE_ENV === 'production') {
